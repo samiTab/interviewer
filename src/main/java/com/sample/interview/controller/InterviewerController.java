@@ -81,13 +81,17 @@ public class InterviewerController {
         }
 
         if(StringUtils.isEmpty(candidateExperience)){
-            resultsList.addAll(questionRepository.findAllByCodingLanguage(codingLanguage));
+            resultsList.addAll(
+                    questionRepository.findAllByCodingLanguageAndInterviewDurationLessThanEqual(
+                            codingLanguage, interviewDuration));
         }else if(StringUtils.isEmpty(codingLanguage)){
-            resultsList.addAll(questionRepository.findAllByCandidateExperience(candidateExperience));
+            resultsList.addAll(
+                    questionRepository.findAllByCandidateExperienceAndInterviewDurationLessThanEqual(
+                            candidateExperience, interviewDuration));
         }else{
             resultsList.addAll(
                     questionRepository.findByCandidateExperienceAndCodingLanguageAndInterviewDurationLessThanEqual(
-                    candidateExperience, codingLanguage, interviewDuration));
+                            candidateExperience, codingLanguage, interviewDuration));
         }
         model.addAttribute("questions", resultsList);
         return "index";

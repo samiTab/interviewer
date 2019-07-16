@@ -11,12 +11,17 @@ import java.util.List;
 public interface QuestionRepository extends CrudRepository<Question,
         Long> {
 
-    List<Question> findByCandidateExperienceAndCodingLanguageAndInterviewDurationLessThanEqual(String candidateExperience,
-                                                                                   String codingLanguage,
-                                                                                   int interviewDuration);
+    List<Question> findByCandidateExperienceAndCodingLanguageAndInterviewDurationLessThanEqual(
+            String candidateExperience,
+            String codingLanguage,
+            int interviewDuration);
 
-    List<Question> findAllByCandidateExperience(String candidateExperience);
+    List<Question> findAllByCandidateExperienceAndInterviewDurationLessThanEqual(
+            String candidateExperience,
+            int interviewDuration);
 
-    List<Question> findAllByCodingLanguage(String codingLanguage);
+    List<Question> findAllByCodingLanguageAndInterviewDurationLessThanEqual(
+            String codingLanguage,
+            int interviewDuration);
 
 }
