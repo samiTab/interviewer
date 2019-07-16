@@ -2,6 +2,7 @@ package com.sample.interview.controller;
 
 import com.sample.interview.entities.Question;
 import com.sample.interview.repositories.QuestionRepository;
+import com.sample.interview.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -67,12 +70,26 @@ public class InterviewerController {
             @RequestParam(name = "interviewDuration", required = false, defaultValue = "30")  int interviewDuration,
             Model model) {
 
+        List<Question> resultsList = new ArrayList<>();
+
         if(StringUtils.isEmpty(candidateExperience) && StringUtils.isEmpty(codingLanguage)){
             return "redirect:list";
         }
 
-        model.addAttribute("questions",
-        questionRepository.findByCandidateExperienceAndCodingLanguageAndInterviewDurationLessThanEqual(candidateExperience, codingLanguage, interviewDuration));
+        if(interviewDuration == 0){
+            interviewDuration = Constants.DEFAULT_INTERVIEW_DURATION;
+        }
+
+        if(StringUtils.isEmpty(candidateExperience)){
+            resultsList.addAll(questionRepository.findAllByCodingLanguage(codingLanguage));
+        }else if(StringUtils.isEmpty(codingLanguage)){
+            resultsList.addAll(questionRepository.findAllByCandidateExperience(candidateExperience));
+        }else{
+            resultsList.addAll(
+                    questionRepository.findByCandidateExperienceAndCodingLanguageAndInterviewDurationLessThanEqual(
+                    candidateExperience, codingLanguage, interviewDuration));
+        }
+        model.addAttribute("questions", resultsList);
         return "index";
     }
 

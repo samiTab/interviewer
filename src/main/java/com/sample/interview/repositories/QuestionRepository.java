@@ -15,4 +15,8 @@ public interface QuestionRepository extends CrudRepository<Question,
                                                                                    String codingLanguage,
                                                                                    int interviewDuration);
 
+    List<Question> findAllByCandidateExperience(String candidateExperience);
+
+    List<Question> findAllByCodingLanguage(String codingLanguage);
+
 }
