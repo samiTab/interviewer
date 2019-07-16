@@ -43,6 +43,7 @@ using the "Add question" button bellow (#S02)
 
 Now after filling in some data we can use the search function (#S01)
 
+![filled-Index_page](img/filled-index.png)
 > find the question for JavaScript medium developer, the maximum interview
 time is 120 minutes
 
