@@ -17,8 +17,13 @@ Used technologies
  - H2 (In memory) database
  - Maven 3
  
+ Clone
+ ----
+     git clone https://github.com/samiTab/interviewer.git
+     
 Build
 -----
+    cd interviewer/
     mvn clean install 
     java -jar target/interviewer-0.1.0.jar
 
